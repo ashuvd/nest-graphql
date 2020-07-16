@@ -1,0 +1,11 @@
+type Query {
+    setting: Setting!
+}
+type Mutation {
+    rpcCreateOrUpdateSetting(ip: String!, port: Int!): Setting!
+}
+type Setting {
+    id: Int!
+    ip: String!
+    port: Int!
+}
