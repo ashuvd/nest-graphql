@@ -1,0 +1,10 @@
+type Query {
+    navigations: [Navigation!]!
+    navigation(id: ID!): Navigation!
+}
+type Navigation {
+    id: Int!
+    name: String!
+    url: String
+    icon: String
+}
