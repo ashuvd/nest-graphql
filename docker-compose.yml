@@ -1,7 +1,7 @@
 version: "3"
 services:
-  nest-graphql-heroku:
-    container_name: nest-graphql-heroku
+  "$DOCKER_USERNAME"/nest-graphql-heroku:
+    container_name: "$DOCKER_USERNAME"/nest-graphql-heroku
     image: node:12
     working_dir: /usr/src/app
     volumes:
@@ -18,8 +18,8 @@ services:
       NODE_ENV: dev
     networks:
       otus-net:
-  otus-postgres-db:
-    container_name: otus-postgres-db
+  "$DOCKER_USERNAME"/otus-postgres-db:
+    container_name: "$DOCKER_USERNAME"/otus-postgres-db
     image: postgres:12
     ports:
       - "7002:5432"
