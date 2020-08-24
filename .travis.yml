@@ -1,0 +1,26 @@
+language: node_js
+node_js:
+  - "12"
+env:
+  - DOCKER_COMPOSE_VERSION=1.16.1
+services:
+  - docker
+before_install:
+  - wget -qO- https://toolbelt.heroku.com/install.sh | sh
+  - sudo rm /usr/local/bin/docker-compose
+  - curl -L https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-`uname -s`-`uname -m` > docker-compose
+  - chmod +x docker-compose
+  - sudo mv docker-compose /usr/local/bin
+  - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
+  - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_PASSWORD" registry.heroku.com
+script:
+  - docker-compose build
+  - docker tag "$DOCKER_USERNAME"/nest-graphql-heroku registry.heroku.com/$HEROKU_APP_NAME/web
+deploy:
+  provider: script
+  script:
+    docker push "$DOCKER_USERNAME"/nest-graphql-heroku;
+    docker push registry.heroku.com/$HEROKU_APP_NAME/web;
+    heroku container:release web --app $HEROKU_APP_NAME;
+  on:
+    branch: deploy

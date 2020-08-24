@@ -1,5 +1,8 @@
 import * as dotenv from 'dotenv';
-dotenv.config();
+import * as path from 'path';
+dotenv.config({
+  path: path.join(process.cwd(), 'dev.env')
+});
 const config = {
   host: process.env.DB_HOST,
   port: +process.env.DB_PORT,
