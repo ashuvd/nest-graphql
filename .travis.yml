@@ -2,7 +2,7 @@ language: node_js
 node_js:
   - "12"
 env:
-  - DOCKER_COMPOSE_VERSION=1.16.1
+  - DOCKER_COMPOSE_VERSION=1.24.1
 services:
   - docker
 before_install:
@@ -14,7 +14,7 @@ before_install:
   - docker login -u "$DOCKER_USERNAME" -p "$DOCKER_PASSWORD"
   - docker login -u "$HEROKU_USERNAME" -p "$HEROKU_PASSWORD" registry.heroku.com
 script:
-  - docker-compose build -t "$DOCKER_USERNAME"/express-travis-heroku
+  - docker-compose up -d
   - docker tag "$DOCKER_USERNAME"/nest-graphql-heroku registry.heroku.com/$HEROKU_APP_NAME/web
 deploy:
   provider: script
